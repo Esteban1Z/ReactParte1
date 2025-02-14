@@ -19,16 +19,28 @@ const Statistics = (props) => {
       return (
     <div>
       <h2>Statistics</h2>
-      <p>
-      good {props.good}<br/>
-      neutral {props.neutral}<br/>
-      bad {props.bad}<br/>
-      average {props.average}<br/>
-      positive {props.positive}%
-      </p>
+      <table>
+      <tbody>
+      <StatisticLine text="good" value ={props.good} />
+      <StatisticLine text="neutral" value ={props.neutral} />
+      <StatisticLine text="bad" value ={props.bad} />
+      <StatisticLine text="all" value ={props.all} />
+      </tbody>
+      </table>
+
     </div>
   )
 }
+}
+
+const StatisticLine = ({ text, value }) => {
+
+  return (
+    <div>
+      {text} {value}
+    </div>
+  )
+
 }
 
 const App = () => {
@@ -39,6 +51,7 @@ const App = () => {
 
   const average = (good - bad) / (good + bad)
   const positive = good / (good + neutral + bad) * 100
+  const all = good + neutral + bad
 
   const goodCont = () => {
     setGood(good+1)
@@ -55,6 +68,7 @@ const App = () => {
     console.log('bad after', bad)
   }
 
+
   return (
     <div>
       <h1>Give Feedback</h1>
@@ -63,7 +77,7 @@ const App = () => {
       <Button onClick={neutralCont} text='neutral' />
       <Button onClick={badCont} text='bad' />
 
-      <Statistics good={good} neutral={neutral} bad={bad} average={average} positive={positive}/>
+      <Statistics good={good} neutral={neutral} bad={bad} average={average} positive={positive} all={all}/>
       </div>
   )
 }
